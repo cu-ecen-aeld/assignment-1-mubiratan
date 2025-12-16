@@ -1,0 +1,29 @@
+name: Teste de Conexão Local
+
+# Quando isso vai rodar? Sempre que você der um push.
+on: [push]
+
+jobs:
+  teste-setup:
+    # AQUI está o segredo. Isso diz ao GitHub para não usar os servidores deles,
+    # mas sim o seu computador que está conectado.
+    runs-on: self-hosted
+
+    steps:
+      # Passo 1: O runner baixa o código do repositório para a pasta _work
+      - name: Baixar código (Checkout)
+        uses: actions/checkout@v4
+
+      # Passo 2: Executa comandos para provar que está na sua máquina
+      - name: Identificar Máquina
+        run: |
+          echo "----------------------------------------"
+          echo "SUCESSO! Estou rodando dentro do Hall9000"
+          echo "Hostname: $(hostname)"
+          echo "Usuário: $(whoami)"
+          echo "Localização do script: $(pwd)"
+          echo "----------------------------------------"
+
+      # Passo 3: Lista os arquivos para confirmar que o clone funcionou
+      - name: Listar arquivos do projeto
+        run: ls -la
